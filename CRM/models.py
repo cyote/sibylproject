@@ -18,10 +18,11 @@ class Client(models.Model):
 
 
     name = models.CharField(max_length=10, verbose_name='姓名')
-    code = models.CharField(max_length=10, verbose_name='客户编号', default=0)
+    code = models.CharField(max_length=10, verbose_name='客户编号', default=0, unique=True)
     gender = models.CharField(max_length=5, verbose_name='性别', choices=gender_choice)
     phone = models.CharField(max_length=13, verbose_name='联系方式')
     birthday = models.DateField(verbose_name='出生日期')
+    school = models.CharField(max_length=50, verbose_name='就读学校', blank=True)
     comments = models.TextField(max_length=400, verbose_name='备注', blank=True)
     client_status = models.CharField(max_length=10, verbose_name='客户状态', choices=client_status_choice, default='leads')
     adress = models.CharField(max_length=50, verbose_name='住址')
@@ -41,7 +42,7 @@ class Client(models.Model):
 class Record(models.Model):
     client = models.ForeignKey(Client, related_name='records',verbose_name='客户')
     title = models.CharField(max_length=100, verbose_name='标题')
-    body = models.CharField(max_length=2000, verbose_name='正文')
+    body = models.TextField(max_length=2000, verbose_name='正文')
     visit = models.IntegerField(default=0, verbose_name='到访次数')
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated = models.DateTimeField(auto_now=True, verbose_name='更新时间')
