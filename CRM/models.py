@@ -19,7 +19,7 @@ class Client(models.Model):
 
     name = models.CharField(max_length=10, verbose_name='姓名')
     code = models.CharField(max_length=10, verbose_name='客户编号', default=0, unique=True)
-    gender = models.CharField(max_length=5, verbose_name='性别', choices=gender_choice)
+    gender = models.CharField(max_length=6, verbose_name='性别', choices=gender_choice)
     phone = models.CharField(max_length=13, verbose_name='联系方式')
     birthday = models.DateField(verbose_name='出生日期')
     school = models.CharField(max_length=50, verbose_name='就读学校', blank=True)
