@@ -1,5 +1,33 @@
 {% extends 'CRM/base.html' %}
 
+{% load staticfiles %}
+
 {% block body %}
-    本页面是"关于"页面
+    <div class="container">
+        <div class="media">
+            <div class="media-left">
+                <img class="media-object" src="{% static 'CRM/images/photo.jpg' %}" height="320" width="200"
+                     style="padding-top: 20px">
+            </div>
+            <div class="media-body">
+                <p>
+
+                <h3>陈晶晶</h3>
+                <ul>
+                    <li>心理学硕士</li>
+                    <li>国家二级心理咨询师</li>
+                    <li>国际WMECC & IHNMA双证催眠师</li>
+                    <li>国家CETTIC高级家庭教育指导师</li>
+                    <li>国家认证高级注意力训练师</li>
+                    <li>国家认证高级情商训练师</li>
+                    <li>国家认证高级学习能力指导师</li>
+                    <li>2015年中考前作为南京市中招志愿填报咨询电视直播嘉宾</li>
+                    <li>南京少儿频道魅力校园专题采访嘉宾</li>
+                    <li>擅长青少年心理咨询、中学生学业规划、青春期心理问题咨询，亲子沟通、婚姻关系等专业指导。每年在南京、常州、无锡等地为学生、家长进行学业指导、心理咨询及家庭教育等讲座</li>
+
+                </ul>
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
