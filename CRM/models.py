@@ -13,9 +13,14 @@ class Client(models.Model):
     client_status_choice = (
         ('leads', '潜在客户'),
         ('normal', '正式客户'),
-        ('end', '已结案')
+        ('end', '已结案'),
     )
 
+    client_type_choice = (
+        ('student', '学生'),
+        ('parent', '家长'),
+        ('adault', '成人'),
+    )
 
     name = models.CharField(max_length=10, verbose_name='姓名')
     code = models.CharField(max_length=10, verbose_name='客户编号', default=0, unique=True)
@@ -25,6 +30,7 @@ class Client(models.Model):
     school = models.CharField(max_length=50, verbose_name='就读学校', blank=True)
     comments = models.TextField(max_length=400, verbose_name='备注', blank=True)
     client_status = models.CharField(max_length=10, verbose_name='客户状态', choices=client_status_choice, default='leads')
+    client_type = models.CharField(max_length=8, verbose_name='客户类型', choices=client_type_choice, default='student', blank=True)
     adress = models.CharField(max_length=50, verbose_name='住址')
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated = models.DateTimeField(auto_now=True)
