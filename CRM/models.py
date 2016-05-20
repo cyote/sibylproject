@@ -1,7 +1,15 @@
 # coding: UTF-8
 from django.db import models
 
+
 # Create your models here.
+def gen_code_from_int(original_pk, starting_number_excl=0, length=6):
+    """
+        Generate a fixed length code(string) from PK,
+        e.g. 20 -> 100020 / 000020
+    """
+    code_str = str(starting_number_excl + original_pk)
+    return code_str[-length:].zfill(length)
 
 #客户信息
 class Client(models.Model):
@@ -32,6 +40,7 @@ class Client(models.Model):
     client_status = models.CharField(max_length=10, verbose_name='客户状态', choices=client_status_choice, default='leads')
     client_type = models.CharField(max_length=8, verbose_name='客户类型', choices=client_type_choice, default='student', blank=True)
     adress = models.CharField(max_length=50, verbose_name='住址')
+    leads_source = models.CharField(max_length=30, verbose_name='何处得知我们', blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False, verbose_name='在案客户')
@@ -40,6 +49,18 @@ class Client(models.Model):
         ordering = ('-created',)
         verbose_name = '客户'
         verbose_name_plural = '客户'
+
+
+
+    def save(self, *args, **kwargs):
+        super(Client, self).save(*args, **kwargs)
+
+        # Populate the code if it is missing
+        # 第一次保存时，生成6位流水号
+        if self.pk and not self.code:
+            self.code = gen_code_from_int(self.pk, length=6, starting_number_excl=0)
+            kwargs['force_insert'] = False
+            super(Client, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -61,3 +82,18 @@ class Record(models.Model):
     def __str__(self):
         return self.client.name
 
+
+class Appointment(models.Model):
+    time_slot_choice = (
+        ('tue', '周二下午'),
+        ('wed', '周三下午'),
+        ('thu', '周四下午'),
+        ('fri', '周五下午'),
+        ('sun1', '周日上午'),
+        ('sun2', '周日下午'),
+    )
+
+    client = models.ForeignKey(Client, verbose_name='客户姓名')
+    subject = models.CharField(max_length=30, verbose_name='预约主题')
+    time_slot = models.CharField(choices=time_slot_choice, verbose_name='时间段')
+    confirm_status =
