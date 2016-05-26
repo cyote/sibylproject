@@ -1,12 +1,31 @@
 {% extends "CRM/base.html" %}
 
 {% load staticfiles %}
-
+{% load bootstrap3 %}
 {% block body %}
+
     {% if client_list %}
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="container">
         <div class="panel panel-default">
 
-            <div class="panel-heading">客户档案</div>
+            <div class="panel-heading">客户档案
+                <a href="{% url 'add_client' %}">
+                    <button type="button" class="btn btn-default btn-xs pull-right ">
+                        <span class="glyphicon glyphicon-user " aria-hidden="true"></span>
+                        创建新客户
+
+
+                    </button>
+                </a>
+            </div>
 
             <!-- Table -->
             <table class="table table-hover">
@@ -17,6 +36,7 @@
                     <th>性别</th>
                     <th>联系方式</th>
                     <th>客户状态</th>
+                    <th>VIP级别</th>
                     <th>创建时间</th>
                 </tr>
                 </thead>
@@ -24,16 +44,18 @@
                 <tbody>
                 {% for client in client_list %}
                     <tr>
-                        <td>{{ client.code }}</td>
+                        <td><a href="{% url 'client_detail' client.code %}">{{ client.code }}</a></td>
                         <td>{{ client.name }}</td>
                         <td>{{ client.get_gender_display }}</td>
                         <td>{{ client.phone }}</td>
                         <td>{{ client.get_client_status_display }}</td>
+                        <td>{{ client.get_vip_class_display }}</td>
                         <td>{{ client.created }}</td>
                     </tr>
                     </tbody>
                 {% endfor %}
             </table>
+        </div>
         </div>
     {% else %}
         <strong>目前还没有客户</strong>
