@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
 
-</body>
-</html>
+
+{% extends 'CRM/base.html' %}
+
+{% load staticfiles %}
+
+{% load bootstrap3 %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-md-3">
+            <h1>创建新报告</h1>
+
+            <form id="client_form" role='form' method="post" action="." enctype="multipart/form-data">
+
+                {% csrf_token %}
+                {% bootstrap_form RecordForm size='sm' %}
+                {% buttons submit='提交' reset='重置' layout='horizontal' %}{% endbuttons %}
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

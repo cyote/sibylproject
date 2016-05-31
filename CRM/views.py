@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_list_or_404, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_list_or_404, get_object_or_404, HttpResponseRedirect, HttpResponse
 from .models import Client, Record, Appointment, Returning_call
-from .forms import ClientForm, AppointmentForm
+from .forms import ClientForm, AppointmentForm, RecordForm
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django import forms
@@ -75,9 +75,13 @@ def add_appointment(request):
     return render(request, 'CRM/add_appointment.html', {'appointment_form': appointment_form})
 
 
+def records_list(request):
+    record_list = get_list_or_404(Record)
+
+    return render(request, 'CRM/records_list.html', {'record_list': record_list})
 
 
+def records_detail(request, record_pk):
+    record = get_object_or_404(Record, pk=record_pk)
 
-
-
-    # def all_records_list()o
+    return render(request, 'CRM/records_detail.html', {'record': record})

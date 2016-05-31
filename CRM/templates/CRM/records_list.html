@@ -1,0 +1,67 @@
+{% extends 'CRM/base.html' %}
+
+{% load bootstrap3 %}
+
+{% load staticfiles %}
+
+{% block body %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">客户报告列表
+
+            </div>
+
+            {% if record_list %}
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>主题</th>
+                        <th>创建日期</th>
+                        <th>来访次数</th>
+                        <th>操作</th>
+
+                    </tr>
+                    </thead>
+                    {% for record in record_list %}
+                        <tbody>
+                        <tr>
+                            <td>{{ record.client.name }}</td>
+                            <td>{{ record.title }}</td>
+                            <td>{{ record.created }}</td>
+                            <td>第{{ record.visit }}次</td>
+                            <td>
+                                <a href="{% url 'records_detail' record.pk %}">
+                                    <button type="button" class="btn btn-default btn-xs ">
+                                        <span class="glyphicon glyphicon-search " aria-hidden="true"></span>
+                                        查看内容
+                                    </button>
+                                </a>
+                                <button type="button" class="btn btn-default btn-xs ">
+                                    <span class="glyphicon glyphicon-edit " aria-hidden="true"></span>
+                                    编辑
+                                </button>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+
+            {% else %}
+                <h1>不存在咨询报告</h1>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

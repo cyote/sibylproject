@@ -38,6 +38,7 @@
                     <th>客户状态</th>
                     <th>VIP级别</th>
                     <th>创建时间</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
 
@@ -51,6 +52,12 @@
                         <td>{{ client.get_client_status_display }}</td>
                         <td>{{ client.get_vip_class_display }}</td>
                         <td>{{ client.created }}</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-edit " aria-hidden="true"></span>
+                                编辑
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 {% endfor %}

@@ -24,3 +24,11 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ['client', 'time_slot', 'date', 'subject', 'comment']
+
+
+class RecordForm(forms.ModelForm):
+    appointment = Appointment.objects.filter(confirm_status='co')
+
+    class Meta:
+        model = Record
+        exclude = ['created', 'updated']

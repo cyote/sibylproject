@@ -139,3 +139,4 @@ class Returning_call(models.Model):
 
     def __str__(self):
         return self.client.name
+
