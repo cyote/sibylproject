@@ -1,0 +1,31 @@
+{% extends 'CRM/base.html' %}
+
+{% load staticfiles %}
+
+{% load bootstrap3 %}
+
+{% block body %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container">
+        <div class="col-md-3">
+            <h1>修改预约信息</h1>
+
+            <p>姓名:{{ appointment.client }}</p>
+
+            <form role='form' method="post" action="." enctype="multipart/form-data">
+
+                {% csrf_token %}
+                {% bootstrap_form editform size='sm' %}
+                {% buttons submit='修改' reset='重置' layout='horizontal' %}{% endbuttons %}
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

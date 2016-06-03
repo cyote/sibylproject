@@ -48,10 +48,19 @@
                             <td>{{ appointment.get_time_slot_display }}</td>
                             <td>{{ appointment.get_confirm_status_display }}</td>
                             <td>
-                                <button type="button" class="btn btn-default btn-xs pull-right ">
-                                    <span class="glyphicon glyphicon-edit " aria-hidden="true"></span>
-                                    编辑
-                                </button>
+                                <a href="{% url 'edit_appointment' appointment.pk %}">
+                                    <button type="button" class="btn btn-default btn-xs  ">
+                                        <span class="glyphicon glyphicon-edit " aria-hidden="true"></span>
+                                        编辑
+                                    </button>
+                                </a>
+                                <a href="{% url 'delete_appointment' appointment.pk %}"
+                                   class=" btn btn-xs btn-danger">
+
+                                    <span class="glyphicon glyphicon-remove " aria-hidden="true"></span>
+                                    删除
+
+                                </a>
                             </td>
                         </tr>
                         </tbody>
@@ -61,8 +70,8 @@
             {% else %}
                 <h1>不存在预约记录</h1>
             {% endif %}
+
         </div>
 
-    </div>
 
 {% endblock %}
