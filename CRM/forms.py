@@ -19,8 +19,7 @@ class ClientForm(forms.ModelForm):
 
 
 class ClientEditForm(forms.ModelForm):
-    class Meta:
-        birthday = forms.DateField(widget=SelectDateWidget(years=range(date.today().year - 60, date.today().year)),
+    birthday = forms.DateField(widget=SelectDateWidget(years=range(date.today().year - 60, date.today().year)),
                                    label='出生日期')
 
     class Meta:
@@ -50,3 +49,11 @@ class RecordForm(forms.ModelForm):
     class Meta:
         model = Record
         exclude = ['created', 'updated']
+
+
+class RecallForm(forms.ModelForm):
+    call_date = forms.DateField(widget=SelectDateWidget(), label='回访日期')
+
+    class Meta:
+        model = Returning_call
+        fields = ('call_date', 'comment')

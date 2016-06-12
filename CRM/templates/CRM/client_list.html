@@ -1,22 +1,25 @@
 {% extends "CRM/base.html" %}
-
 {% load staticfiles %}
 {% load bootstrap3 %}
+
 {% block body %}
-
-    {% if client_list %}
-
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
         <div class="container">
+            <div class="form-inline ">
+                <form action="" method="get">
+                    {% for field in clients.form %}
+                        {{ field.label_tag }}:{% bootstrap_field field show_label=False show_help=False size='small' %}
+                        {{ field.errors }}
+                    {% endfor %}
+                    <input type="submit"/>
+                </form>
+            </div>
+        </div>
+    <hr>
+    {% bootstrap_messages %}
+    <div class="container">
         <div class="panel panel-default">
+            <div class="panel-heading">客户列表
 
-            <div class="panel-heading">客户档案
                 <a href="{% url 'add_client' %}">
                     <button type="button" class="btn btn-default btn-xs pull-right ">
                         <span class="glyphicon glyphicon-user " aria-hidden="true"></span>
@@ -28,7 +31,7 @@
             </div>
 
             <!-- Table -->
-            <table class="table table-hover">
+            <table class="table table-hover table-striped">
                 <thead>
                 <tr>
                     <th>客户编号</th>
@@ -42,8 +45,9 @@
                 </tr>
                 </thead>
 
+
                 <tbody>
-                {% for client in client_list %}
+                {% for client in f %}
                     <tr>
                         <td><a href="{% url 'client_detail' client.code %}">{{ client.code }}</a></td>
                         <td>{{ client.name }}</td>
@@ -61,12 +65,15 @@
                             </a>
                         </td>
                     </tr>
-                    </tbody>
                 {% endfor %}
+                </tbody>
+
+
             </table>
+            <div align="center">
+                {% bootstrap_pagination f url=request.get_full_path size="small" %}
+            </div>
         </div>
         </div>
-    {% else %}
-        <strong>目前还没有客户</strong>
-    {% endif %}
+
 {% endblock %}

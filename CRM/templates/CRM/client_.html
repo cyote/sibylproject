@@ -1,0 +1,22 @@
+{% extends "CRM/base.html" %}
+{% load staticfiles %}
+
+{% load django_tables2 %}
+
+{% block body %}
+    <div class="form-inline ">
+        <form action="" method="get">
+            {% for field in f.form %}
+                {{ field.label_tag }}:{{ field }}
+                {{ field.errors }}
+            {% endfor %}
+            <input type="submit"/>
+        </form>
+    </div>
+    <div class="container ">
+        <div class="table table-bordered">
+            {% render_table table %}
+        </div>
+    </div>
+
+{% endblock %}

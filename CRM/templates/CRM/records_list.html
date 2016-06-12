@@ -6,22 +6,14 @@
 
 {% block body %}
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {% bootstrap_messages %}
     <div class="container">
         <div class="panel panel-default">
-            <div class="panel-heading">客户报告列表
-
-            </div>
+            <div class="panel-heading">客户报告列表</div>
 
             {% if record_list %}
 
-                <table class="table table-hover">
+                <table class="table table-hover table-striped">
                     <thead>
                     <tr>
                         <th>姓名</th>
@@ -32,8 +24,9 @@
 
                     </tr>
                     </thead>
-                    {% for record in record_list %}
+
                         <tbody>
+                        {% for record in record_list %}
                         <tr>
                             <td>{{ record.client.name }}</td>
                             <td>{{ record.title }}</td>
@@ -53,15 +46,14 @@
                             </td>
 
                         </tr>
+                        {% endfor %}
                         </tbody>
-                    {% endfor %}
                 </table>
 
             {% else %}
                 <h1>不存在咨询报告</h1>
             {% endif %}
         </div>
-
     </div>
 
 {% endblock %}

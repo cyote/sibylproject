@@ -8,13 +8,7 @@
 
 {% block body %}
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {% bootstrap_messages %}
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">客户预约列表
@@ -28,7 +22,7 @@
 
             {% if list %}
 
-                <table class="table table-hover">
+                <table class="table table-hover table-striped">
                     <thead>
                     <tr>
                         <th>预约客户</th>
@@ -39,8 +33,9 @@
                         <th>操作</th>
                     </tr>
                     </thead>
-                    {% for appointment in list %}
+
                         <tbody>
+                        {% for appointment in list %}
                         <tr>
                             <td>{{ appointment.client }}</td>
                             <td>{{ appointment.subject }}</td>
@@ -63,8 +58,9 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endfor %}
                         </tbody>
-                    {% endfor %}
+
                 </table>
 
             {% else %}

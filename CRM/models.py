@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+import django_filters
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -75,6 +76,28 @@ class Client(models.Model):
     def __str__(self):
         return self.name
 
+
+def add_unrestricted_to_choices(choices):
+    return (('', _('---------')),) + choices
+
+
+class ClientFilter(django_filters.FilterSet):
+    class Meta:
+        model = Client
+        fields = {'code': ['contains'],
+                  'gender': ['exact'],
+                  'school': ['icontains'],
+                  'vip_class': ['exact'],
+                  'client_status': ['exact'],
+                  'client_type': ['exact'],
+                  }
+
+    def __init__(self, *args, **kwargs):
+        super(ClientFilter, self).__init__(*args, **kwargs)
+        self.filters['gender'].extra.update(choices=add_unrestricted_to_choices(Client.gender_choice))
+        self.filters['vip_class'].extra.update(choices=add_unrestricted_to_choices(Client.vip_class_choice))
+        self.filters['client_status'].extra.update(choices=add_unrestricted_to_choices(Client.client_status_choice))
+        self.filters['client_type'].extra.update(choices=add_unrestricted_to_choices(Client.client_type_choice))
 
 # 预约来访
 class Appointment(models.Model):
