@@ -5,8 +5,8 @@ from .forms import ClientForm, AppointmentForm, RecordForm, ClientEditForm, Appo
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-import django_tables2 as tables
 
+# 123
 
 
 # Create your views here.
